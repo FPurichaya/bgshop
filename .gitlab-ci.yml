@@ -1,0 +1,26 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  environment: 
+    name: staging
+  image: node:12-alpine
+  before_script:
+  script:
+    - yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - ./build
+
+deploy:
+  stage: deploy
+  environment: 
+    name: staging
+  image: python:latest
+  script:
+    - pip install awscli
+    - cd ./build
+    - aws s3 sync . s3://$AWS_S3_WEB_BUCKET/
