@@ -28,6 +28,14 @@ const gameDetails = [
     players: '2-4',
     duration: '60',
   },
+  {
+    name: 'LOGO Billionaire',
+    thumbnail:
+      'https://assets.whsmith.co.uk/product-image/extra-large/36584543_3.jpg',
+    price: '23.99',
+    players: '2-4',
+    duration: '60',
+  },
 ];
 
-render(<GameCard game={gameDetails[1]} />, document.getElementById('root'));
+render(<GameCard game={gameDetails[3]} />, document.getElementById('root'));
