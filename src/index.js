@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
+import GameCard from './components/GameCard';
 
-render(<h1>Hello World</h1>, document.getElementById('root'));
+render(<GameCard />, document.getElementById('root'));
