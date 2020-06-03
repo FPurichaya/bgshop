@@ -7,7 +7,7 @@ const GameCard = ({ game }) => (
       <img src={game.thumbnail} alt="Game Cover" />
     </div>
     <div className="content">
-      <a href="#" className="header">
+      <a href="http://duckduckgo.com" className="header">
         {game.name}
       </a>
       <div className="meta">
