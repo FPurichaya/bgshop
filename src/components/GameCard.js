@@ -1,10 +1,13 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import Price from './Price';
 
 const GameCard = ({ game }) => (
   <div className="ui card">
     <div className="image">
-      <span className="ui green ribbon label">${game.price}</span>
+      <span className="ui green ribbon label">
+        $<Price prices={game.price} />
+      </span>
       <img src={game.thumbnail} alt="Game Cover" />
     </div>
     <div className="content">
