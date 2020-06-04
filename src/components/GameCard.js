@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 const GameCard = ({ game }) => (
   <div className="ui card">
@@ -17,5 +18,15 @@ const GameCard = ({ game }) => (
     </div>
   </div>
 );
+
+GameCard.propTypes = {
+  game: Proptypes.shape({
+    name: Proptypes.string.isRequired,
+    thumbnail: Proptypes.string.isRequired,
+    players: Proptypes.string.isRequired,
+    price: Proptypes.number.isRequired,
+    duration: Proptypes.number.isRequired,
+  }).isRequired,
+};
 
 export default GameCard;
