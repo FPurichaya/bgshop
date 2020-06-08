@@ -1,9 +1,11 @@
 import React from 'react';
+import _orderBy from 'lodash/orderBy';
 import GameList from './GameList';
 
 const gameDetails = [
   {
     _id: 1,
+    featured: true,
     name: 'Quadropolis',
     thumbnail:
       'https://cf.geekdo-images.com/opengraph/img/tthn7L9-fC_GaXJHfA20VdTrFts=/fit-in/1200x630/pic2840020.jpg',
@@ -13,6 +15,7 @@ const gameDetails = [
   },
   {
     _id: 2,
+    featured: false,
     name: 'Azul',
     thumbnail:
       'https://cf.geekdo-images.com/imagepage/img/mswTFqJsQ_omcKa_y1yNfFMJP6M=/fit-in/900x600/filters:no_upscale()/pic3718275.jpg',
@@ -22,6 +25,7 @@ const gameDetails = [
   },
   {
     _id: 3,
+    featured: false,
     name: 'UNO',
     thumbnail:
       'https://p16-va-default.akamaized.net/img/musically-maliva-obj/1654747055333381~c5_720x720.jpeg',
@@ -31,6 +35,7 @@ const gameDetails = [
   },
   {
     _id: 4,
+    featured: false,
     name: 'Jutaria Millionaire',
     thumbnail:
       'https://www.slstoys.com.my/image/hann/image/cache/data/all_product_images/product-1727/ZWHKHSXV1585820249-700x700.jpg',
@@ -46,7 +51,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ gameDetails });
+    this.setState({
+      gameDetails: _orderBy(gameDetails, ['featured', 'name'], ['desc', 'asc']),
+    });
   }
 
   render() {

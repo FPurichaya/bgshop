@@ -1,5 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import Featured from './Featured';
 import Price from './Price';
 
 const GameCard = ({ game }) => (
@@ -8,6 +9,7 @@ const GameCard = ({ game }) => (
       <span className="ui green ribbon label">
         $<Price prices={game.price} />
       </span>
+      <Featured featured={game.featured} />
       <img src={game.thumbnail} alt="Game Cover" />
     </div>
     <div className="content">
@@ -29,6 +31,7 @@ GameCard.propTypes = {
     players: Proptypes.string.isRequired,
     price: Proptypes.number.isRequired,
     duration: Proptypes.number.isRequired,
+    featured: Proptypes.bool.isRequired,
   }).isRequired,
 };
 
