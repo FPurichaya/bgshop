@@ -47,19 +47,41 @@ const gameDetails = [
 
 class App extends React.Component {
   state = {
-    games: [],
+    gameDetails: [],
   };
 
   componentDidMount() {
     this.setState({
-      gameDetails: _orderBy(gameDetails, ['featured', 'name'], ['desc', 'asc']),
+      gameDetails: this.sortGames(gameDetails),
     });
   }
+
+  sortGames(gameDetails) {
+    return _orderBy(gameDetails, ['featured', 'name'], ['desc', 'asc']);
+  }
+
+  toggleFeatured = (gameId) => {
+    //  const newGames = this.state.gameDetails.map((game) => {
+    //    if (game._id === gameId) return { ...game, featured: !game.featured };
+    //    return game;
+    //  });
+    //  this.setState({ gameDetails: this.sortGames(newGames) });
+    this.setState({
+      gameDetails: this.sortGames(
+        this.state.gameDetails.map((game) =>
+          gameId === game._id ? { ...game, featured: !game.featured } : game
+        )
+      ),
+    });
+  };
 
   render() {
     return (
       <div className="ui container">
-        <GameList games={this.state.gameDetails} />
+        <GameList
+          games={this.state.gameDetails}
+          toggleFeatured={this.toggleFeatured}
+        />
       </div>
     );
   }
