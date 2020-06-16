@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+const tags = [
+  { _id: 1, name: 'dice' },
+  { _id: 2, name: 'economic' },
+  { _id: 3, name: 'family' },
+];
+
 class GameForm extends Component {
   state = {
     name: '',
@@ -7,6 +13,8 @@ class GameForm extends Component {
     price: 0,
     duration: 0,
     players: '',
+    featured: false,
+    tags: [],
   };
 
   //define handleSubmit  as a class property
@@ -21,6 +29,12 @@ class GameForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   handleNumberChange = (e) =>
     this.setState({ [e.target.name]: parseInt(e.target.value, 10) });
+  handleCheckboxChange = (e) =>
+    this.setState({ [e.target.name]: e.target.checked });
+  toggleTag = (tag) =>
+    this.state.tags.includes(tag._id)
+      ? this.setState({ tags: this.state.tags.filter((id) => id !== tag._id) })
+      : this.setState({ tags: [...this.state.tags, tag._id] });
 
   render() {
     return (
@@ -87,6 +101,32 @@ class GameForm extends Component {
               onChange={this.handleStringChange}
             />
           </div>
+        </div>
+
+        <div className="inline field">
+          <input
+            id="featured"
+            name="featured"
+            type="checkbox"
+            checked={this.state.featured}
+            onChange={this.handleCheckboxChange}
+          />
+          <label htmlFor="featured">Featured?</label>
+        </div>
+
+        <div className="field">
+          <label>Tags</label>
+          {tags.map((tag) => (
+            <div key={tag._id} className="inline field">
+              <input
+                id={`tag-${tag._id}`}
+                type="checkbox"
+                checked={this.state.tags.includes(tag._id)}
+                onChange={() => this.toggleTag(tag)}
+              />
+              <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
+            </div>
+          ))}
         </div>
 
         <button className="ui button" type="submit">
