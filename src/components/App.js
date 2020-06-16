@@ -2,6 +2,7 @@ import React from 'react';
 import _orderBy from 'lodash/orderBy';
 import GameList from './GameList';
 import GameForm from './GameForm';
+import TopNavigation from './TopNavigation';
 
 const publishers = [
   {
@@ -64,6 +65,7 @@ const gameDetails = [
 class App extends React.Component {
   state = {
     gameDetails: [],
+    showGameForm: false,
   };
 
   componentDidMount() {
@@ -91,15 +93,31 @@ class App extends React.Component {
     });
   };
 
+  showGameForm = () => this.setState({ showGameForm: true });
+  hideGameForm = () => this.setState({ showGameForm: false });
+
   render() {
+    const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
+
     return (
       <div className="ui container">
-        <GameForm publishers={publishers} />
+        <TopNavigation showGameForm={this.showGameForm} />
+
+        <div className="ui stackable grid">
+          {this.state.showGameForm && (
+            <div className="six wide column">
+              <GameForm publishers={publishers} cancel={this.hideGameForm} />
+            </div>
+          )}
+          <div className={`${numberOfColumns} wide column`}>
+            <GameList
+              games={this.state.gameDetails}
+              toggleFeatured={this.toggleFeatured}
+            />
+          </div>
+        </div>
+
         <br />
-        <GameList
-          games={this.state.gameDetails}
-          toggleFeatured={this.toggleFeatured}
-        />
       </div>
     );
   }
