@@ -19,6 +19,19 @@ class GameForm extends Component {
     errors: {},
   };
 
+  validate(data) {
+    const errors = {};
+
+    if (!data.name) errors.name = "This field can't be empty";
+    if (!data.players) errors.players = "This field can't be empty";
+    if (!data.publisher) errors.publisher = "This field can't be empty";
+    if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
+    if (data.price <= 0) errors.price = "Too cheap, don't you think?";
+    if (data.duration <= 0) errors.duration = "Too short, isn't it?";
+
+    return errors;
+  }
+
   //define handleSubmit  as a class property
   handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +39,7 @@ class GameForm extends Component {
     this.setState({ errors });
 
     if (Object.keys(errors).length === 0) {
-      console.log(this.state.data);
+      this.props.submit(this.state.data);
     }
   };
 
@@ -198,6 +211,7 @@ GameForm.propTypes = {
     })
   ).isRequired,
   cancel: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
 };
 
 GameForm.defaultProps = {
