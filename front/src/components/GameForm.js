@@ -16,15 +16,18 @@ class GameForm extends Component {
       thumbnail: '',
     },
 
-    errors: {
-      name: "This field can't be blank",
-    },
+    errors: {},
   };
 
   //define handleSubmit  as a class property
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.data);
+    const errors = this.validate(this.state.data);
+    this.setState({ errors });
+
+    if (Object.keys(errors).length === 0) {
+      console.log(this.state.data);
+    }
   };
 
   //Universal event handler
@@ -156,7 +159,7 @@ class GameForm extends Component {
           <label htmlFor="featured">Featured?</label>
         </div>
 
-        <div className={errors.publisher ? 'field error' : 'field'}>
+        <div className={errors.publishers ? 'field error' : 'field'}>
           <label>Publishers</label>
           <select
             name="publisher"
@@ -170,7 +173,7 @@ class GameForm extends Component {
               </option>
             ))}
           </select>
-          <FormInlineMessage content={errors.publisher} type="error " />
+          <FormInlineMessage content={errors.publishers} type="error " />
         </div>
 
         <div className="ui fluid buttons">
