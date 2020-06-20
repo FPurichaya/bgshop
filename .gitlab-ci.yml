@@ -8,6 +8,7 @@ build:
     name: staging
   image: node:12-alpine
   before_script:
+    - cd front
   script:
     - yarn install
     - yarn build
