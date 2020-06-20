@@ -14,7 +14,7 @@ build:
     - yarn build
   artifacts:
     paths:
-      - ./build
+      - ./front/build
 
 deploy:
   stage: deploy
@@ -23,5 +23,5 @@ deploy:
   image: python:latest
   script:
     - pip install awscli
-    - cd ./build
+    - cd ./front/build
     - aws s3 sync . s3://$AWS_S3_WEB_BUCKET/
