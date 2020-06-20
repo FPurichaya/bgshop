@@ -211,6 +211,7 @@ class GameForm extends Component {
             Create
           </button>
           <div className="or"> </div>
+          {/* eslint-disable-next-line */}
           <a className="ui button" onClick={this.props.cancel}>
             Cancel
           </a>

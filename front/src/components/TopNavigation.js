@@ -6,6 +6,7 @@ const TopNavigation = ({ showGameForm }) => (
     <a href="/" className="item">
       BGShop
     </a>
+    {/* eslint-disable-next-line */}
     <a className="item" onClick={showGameForm}>
       <i className="icon plus"></i>Add New Game{' '}
     </a>
