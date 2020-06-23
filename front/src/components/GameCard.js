@@ -37,13 +37,13 @@ class GameCard extends React.Component {
           {this.state.showConfirmation ? (
             <div className="ui two buttons">
               <a
-                className="ui red basic buttons"
+                className="ui red basic button"
                 onClick={() => deleteGame(game)}
               >
                 <i className="ui icon check">YES</i>
               </a>
               <a
-                className="ui grey basic buttons"
+                className="ui grey basic button"
                 onClick={this.hideConfirmation}
               >
                 <i className="ui icon close">NO</i>
@@ -52,13 +52,13 @@ class GameCard extends React.Component {
           ) : (
             <div className="ui two buttons">
               <a
-                className="ui green  basic buttons"
+                className="ui green basic button"
                 onClick={() => editGame(game)}
               >
                 <i className="ui icon edit"></i>
               </a>
               <a
-                className="ui red basic buttons"
+                className="ui red basic button"
                 onClick={this.showConfirmation}
               >
                 <i className="ui icon trash"></i>
