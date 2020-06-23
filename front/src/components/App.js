@@ -7,11 +7,11 @@ import api from '../api';
 
 const publishers = [
   {
-    _id: 1,
+    _id: '1',
     name: 'Days of Wonder',
   },
   {
-    _id: 2,
+    _id: '2',
     name: 'Rio Grand Games',
   },
 ];
@@ -56,17 +56,13 @@ class App extends React.Component {
 
   saveGame = (game) => (game._id ? this.updateGame(game) : this.addGame(game));
 
-  addGame = (game) =>
-    this.setState({
-      gameDetails: this.sortGames([
-        ...this.state.gameDetails,
-        {
-          ...game,
-          _id: this.state.gameDetails.length + 1,
-        },
-      ]),
-      showGameForm: false,
-    });
+  addGame = (gameData) =>
+    api.games.create(gameData).then((game) =>
+      this.setState({
+        gameDetails: this.sortGames([...this.state.gameDetails, game]),
+        showGameForm: false,
+      })
+    );
 
   updateGame = (game) =>
     this.setState({
