@@ -64,15 +64,17 @@ class App extends React.Component {
       })
     );
 
-  updateGame = (game) =>
-    this.setState({
-      gameDetails: this.sortGames(
-        this.state.gameDetails.map((item) =>
-          item._id === game._id ? game : item
-        )
-      ),
-      showGameForm: false,
-    });
+  updateGame = (gameData) =>
+    api.games.update(gameData).then((game) =>
+      this.setState({
+        gameDetails: this.sortGames(
+          this.state.gameDetails.map((item) =>
+            item._id === game._id ? game : item
+          )
+        ),
+        showGameForm: false,
+      })
+    );
 
   deleteGame = (game) =>
     this.setState({

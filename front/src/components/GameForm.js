@@ -57,13 +57,11 @@ class GameForm extends Component {
 
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
-      setTimeout(() => {
-        this.props
-          .submit(this.state.data)
-          .catch((err) =>
-            this.setState({ errors: err.response.data.errors, loading: false })
-          );
-      }, 1000);
+      this.props
+        .submit(this.state.data)
+        .catch((err) =>
+          this.setState({ errors: err.response.data.errors, loading: false })
+        );
     }
   };
 
