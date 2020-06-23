@@ -1,5 +1,6 @@
 import React from 'react';
 import _orderBy from 'lodash/orderBy';
+import _find from 'lodash/find';
 import GameList from './GameList';
 import GameForm from './GameForm';
 import TopNavigation from './TopNavigation';
@@ -34,17 +35,10 @@ class App extends React.Component {
   }
 
   toggleFeatured = (gameId) => {
-    //  const newGames = this.state.gameDetails.map((game) => {
-    //    if (game._id === gameId) return { ...game, featured: !game.featured };
-    //    return game;
-    //  });
-    //  this.setState({ gameDetails: this.sortGames(newGames) });
-    this.setState({
-      gameDetails: this.sortGames(
-        this.state.gameDetails.map((game) =>
-          gameId === game._id ? { ...game, featured: !game.featured } : game
-        )
-      ),
+    const game = _find(this.state.gameDetails, { _id: gameId });
+    return this.updateGame({
+      ...game,
+      featured: !game.featured,
     });
   };
 
