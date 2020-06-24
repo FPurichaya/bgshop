@@ -1,3 +1,4 @@
+//eslint-disable jsx-a11y/anchor-is-valid
 import React from 'react';
 import Proptypes from 'prop-types';
 import Featured from './Featured';
@@ -27,6 +28,7 @@ class GameCard extends React.Component {
           <img src={game.thumbnail} alt="Game Cover" />
         </div>
         <div className="content">
+          {/* eslint-disable-next-line */}
           <a className="header">{game.name}</a>
           <div className="meta">
             <i className="icon users" /> {game.players}&nbsp;
@@ -36,12 +38,14 @@ class GameCard extends React.Component {
         <div className="extra content">
           {this.state.showConfirmation ? (
             <div className="ui two buttons">
+              {/* eslint-disable-next-line */}
               <a
                 className="ui red basic button"
                 onClick={() => deleteGame(game)}
               >
                 <i className="ui icon check">YES</i>
               </a>
+              {/* eslint-disable-next-line */}
               <a
                 className="ui grey basic button"
                 onClick={this.hideConfirmation}
@@ -51,12 +55,14 @@ class GameCard extends React.Component {
             </div>
           ) : (
             <div className="ui two buttons">
+              {/* eslint-disable-next-line */}
               <a
                 className="ui green basic button"
                 onClick={() => editGame(game)}
               >
                 <i className="ui icon edit"></i>
               </a>
+              {/* eslint-disable-next-line */}
               <a
                 className="ui red basic button"
                 onClick={this.showConfirmation}
