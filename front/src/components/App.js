@@ -22,12 +22,15 @@ class App extends React.Component {
     gameDetails: [],
     showGameForm: false,
     selectedGame: {},
+    loading: true,
   };
 
   componentDidMount() {
     api.games
       .fetchAll()
-      .then((games) => this.setState({ gameDetails: this.sortGames(games) }));
+      .then((games) =>
+        this.setState({ gameDetails: this.sortGames(games), loading: false })
+      );
   }
 
   sortGames(gameDetails) {
@@ -71,11 +74,13 @@ class App extends React.Component {
     );
 
   deleteGame = (game) =>
-    this.setState({
-      gameDetails: this.state.gameDetails.filter(
-        (item) => item._id !== game._id
-      ),
-    });
+    api.games.delete(game).then(() =>
+      this.setState({
+        gameDetails: this.state.gameDetails.filter(
+          (item) => item._id !== game._id
+        ),
+      })
+    );
 
   render() {
     const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
@@ -96,12 +101,22 @@ class App extends React.Component {
             </div>
           )}
           <div className={`${numberOfColumns} wide column`}>
-            <GameList
-              games={this.state.gameDetails}
-              toggleFeatured={this.toggleFeatured}
-              editGame={this.selectGameForEditing}
-              deleteGame={this.deleteGame}
-            />
+            {this.state.loading ? (
+              <div className="ui icon message">
+                <i className="notched circle loading icon"></i>
+                <div className="content">
+                  <div className="header">Wait a second!!</div>
+                  <p>Games collection is loading...</p>
+                </div>
+              </div>
+            ) : (
+              <GameList
+                games={this.state.gameDetails}
+                toggleFeatured={this.toggleFeatured}
+                editGame={this.selectGameForEditing}
+                deleteGame={this.deleteGame}
+              />
+            )}
           </div>
         </div>
 

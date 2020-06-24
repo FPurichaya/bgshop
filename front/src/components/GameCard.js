@@ -8,8 +8,8 @@ class GameCard extends React.Component {
     showConfirmation: false,
   };
 
-  showConfirmation = () => this.serState({ showConfirmation: true });
-  hideConfirmation = () => this.serState({ showConfirmation: false });
+  showConfirmation = () => this.setState({ showConfirmation: true });
+  hideConfirmation = () => this.setState({ showConfirmation: false });
 
   render() {
     const { game, toggleFeatured, editGame, deleteGame } = this.props;
