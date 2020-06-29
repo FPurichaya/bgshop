@@ -1,6 +1,7 @@
 //eslint-disable jsx-a11y/anchor-is-valid
 import React from 'react';
 import Proptypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Featured from './Featured';
 import Price from './Price';
 
@@ -28,8 +29,9 @@ class GameCard extends React.Component {
           <img src={game.thumbnail} alt="Game Cover" />
         </div>
         <div className="content">
-          {/* eslint-disable-next-line */}
-          <a className="header">{game.name}</a>
+          <Link to={`/game/${game._id}`} className="header">
+            {game.name}
+          </Link>
           <div className="meta">
             <i className="icon users" /> {game.players}&nbsp;
             <i className="icon wait" /> {game.duration} min.
