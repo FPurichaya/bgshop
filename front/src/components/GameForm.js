@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ReactImageFallback from 'react-image-fallback';
 import FormInlineMessage from './FormInlineMessage';
 
@@ -217,10 +218,9 @@ class GameForm extends Component {
             Create
           </button>
           <div className="or"> </div>
-          {/* eslint-disable-next-line */}
-          <a className="ui button" onClick={this.props.cancel}>
+          <Link to="/games" className="ui button">
             Cancel
-          </a>
+          </Link>
         </div>
       </form>
     );
@@ -234,7 +234,6 @@ GameForm.propTypes = {
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
-  cancel: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
   game: PropTypes.shape({
     _id: PropTypes.string,
