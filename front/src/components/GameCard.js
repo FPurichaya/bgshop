@@ -14,7 +14,7 @@ class GameCard extends React.Component {
   hideConfirmation = () => this.setState({ showConfirmation: false });
 
   render() {
-    const { game, toggleFeatured, editGame, deleteGame } = this.props;
+    const { game, toggleFeatured, deleteGame } = this.props;
     return (
       <div className="ui card">
         <div className="image">
@@ -57,13 +57,12 @@ class GameCard extends React.Component {
             </div>
           ) : (
             <div className="ui two buttons">
-              {/* eslint-disable-next-line */}
-              <a
+              <Link
                 className="ui green basic button"
-                onClick={() => editGame(game)}
+                to={`/games/edit/${game._id}`}
               >
                 <i className="ui icon edit"></i>
-              </a>
+              </Link>
               {/* eslint-disable-next-line */}
               <a
                 className="ui red basic button"
@@ -89,7 +88,6 @@ GameCard.propTypes = {
     featured: Proptypes.bool.isRequired,
   }).isRequired,
   toggleFeatured: Proptypes.func.isRequired,
-  editGame: Proptypes.func.isRequired,
   deleteGame: Proptypes.func.isRequired,
 };
 
