@@ -27,7 +27,7 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 
 mongodb.MongoClient.connect(
-  `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+  `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true&replicaSet=Bgshop-shard-0&authSource=admin&retryWrites=true&w=majority`,
   (err, db) => {
     app.set('db', db);
 
@@ -35,6 +35,6 @@ mongodb.MongoClient.connect(
       res.sendFile(path.join(__dirname, './index.html'));
     });
 
-    app.listen(2370, () => console.log('Running on localhost:2370'));
+    app.listen(80, () => console.log('Running on localhost:80'));
   }
 );
