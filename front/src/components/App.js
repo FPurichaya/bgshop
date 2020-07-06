@@ -11,7 +11,10 @@ class App extends Component {
     user: {
       token: null,
     },
+    message: '',
   };
+
+  setMessage = (message) => this.setState({ message });
 
   logout = () => this.setState({ user: { token: null } });
 
@@ -23,9 +26,21 @@ class App extends Component {
           logout={this.logout}
         />
 
+        {this.state.message && (
+          <div className="ui info message">
+            <i className="close icon" onClick={() => this.setMessage('')} />
+            {this.state.message}
+          </div>
+        )}
+
         <Route path="/" exact component={HomePage} />
         <Route path="/games" component={GamesPage} />
-        <Route path="/signup" component={SignupPage} />
+        <Route
+          path="/signup"
+          render={(props) => (
+            <SignupPage {...props} setMessage={this.setMessage} />
+          )}
+        />
         <Route path="/game/:_id" exact component={ShowGamePage} />
       </div>
     );
