@@ -7,11 +7,10 @@ import GamesPage from './GamesPage';
 import ShowGamePage from './ShowGamePage';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
-import Axios from 'axios';
 
 const setAuthorizationHeader = (token = null) => {
   if (token) {
-    axios.defaults.headers.common.Authorization = `Bearer $'{token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
     delete axios.defaults.headers.common.Authorization;
   }
@@ -62,7 +61,10 @@ class App extends Component {
         )}
 
         <Route path="/" exact component={HomePage} />
-        <Route path="/games" component={GamesPage} />
+        <Route
+          path="/games"
+          render={(props) => <GamesPage {...props} user={this.state.user} />}
+        />
         <Route
           path="/signup"
           render={(props) => (
