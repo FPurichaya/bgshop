@@ -6,7 +6,6 @@ import GameList from './GameList';
 import GameForm from './GameForm';
 import api from '../api';
 import AdminRoute from './AdminRoute';
-import { checkPropTypes } from 'prop-types';
 
 const publishers = [
   {
@@ -132,6 +131,7 @@ class GamesPage extends React.Component {
                 games={this.state.gameDetails}
                 toggleFeatured={this.toggleFeatured}
                 deleteGame={this.deleteGame}
+                user={this.props.user}
               />
             )}
           </div>

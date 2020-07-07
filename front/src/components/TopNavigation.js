@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const TopNavigation = ({ isAuthenticated, logout }) => (
+const TopNavigation = ({ isAuthenticated, logout, isAdmin }) => (
   <div className="ui secondary pointing menu">
     <NavLink exact to="/" className="item">
       BGShop
@@ -10,9 +10,11 @@ const TopNavigation = ({ isAuthenticated, logout }) => (
     <NavLink exact to="/games" className="item">
       Games
     </NavLink>
-    <NavLink exact to="/games/new" className="item">
-      <i className="icon plus"></i>Add New Game{' '}
-    </NavLink>
+    {isAdmin && (
+      <NavLink exact to="/games/new" className="item">
+        <i className="icon plus"></i>Add New Game{' '}
+      </NavLink>
+    )}
 
     {isAuthenticated ? (
       <div className="right menu">
@@ -36,6 +38,7 @@ const TopNavigation = ({ isAuthenticated, logout }) => (
 
 TopNavigation.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
 };
 
