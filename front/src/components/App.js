@@ -20,6 +20,7 @@ class App extends Component {
   state = {
     user: {
       token: null,
+      role: 'user',
     },
     message: '',
   };
