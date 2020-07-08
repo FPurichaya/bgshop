@@ -16,6 +16,7 @@ const TopNavigation = ({ isAuthenticated, logout }) => (
 
     {isAuthenticated ? (
       <div className="right menu">
+        {/* eslint-disable-next-line */}
         <a onClick={logout} className="item">
           Log out
         </a>
