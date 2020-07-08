@@ -1,6 +1,6 @@
 //eslint-disable jsx-a11y/anchor-is-valid
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Featured from './Featured';
 import Price from './Price';
@@ -14,7 +14,43 @@ class GameCard extends React.Component {
   hideConfirmation = () => this.setState({ showConfirmation: false });
 
   render() {
-    const { game, toggleFeatured, deleteGame } = this.props;
+    const { game, toggleFeatured, deleteGame, user } = this.props;
+    const adminActions = (
+      <div className="extra content">
+        {this.state.showConfirmation ? (
+          <div className="ui two buttons">
+            {/* eslint-disable-next-line */}
+            <a className="ui red basic button" onClick={() => deleteGame(game)}>
+              <i className="ui icon check">YES</i>
+            </a>
+            {/* eslint-disable-next-line */}
+            <a className="ui grey basic button" onClick={this.hideConfirmation}>
+              <i className="ui icon close">NO</i>
+            </a>
+          </div>
+        ) : (
+          <div className="ui two buttons">
+            <Link
+              className="ui green basic button"
+              to={`/games/edit/${game._id}`}
+            >
+              <i className="ui icon edit"></i>
+            </Link>
+            {/* eslint-disable-next-line */}
+            <a className="ui red basic button" onClick={this.showConfirmation}>
+              <i className="ui icon trash"></i>
+            </a>
+          </div>
+        )}
+      </div>
+    );
+    const addToCart = (
+      <div className="extra content">
+        {/* eslint-disable-next-line */}
+        <a className="ui green basic button">Add to Cart</a>
+      </div>
+    );
+
     return (
       <div className="ui card">
         <div className="image">
@@ -37,58 +73,29 @@ class GameCard extends React.Component {
             <i className="icon wait" /> {game.duration} min.
           </div>
         </div>
-        <div className="extra content">
-          {this.state.showConfirmation ? (
-            <div className="ui two buttons">
-              {/* eslint-disable-next-line */}
-              <a
-                className="ui red basic button"
-                onClick={() => deleteGame(game)}
-              >
-                <i className="ui icon check">YES</i>
-              </a>
-              {/* eslint-disable-next-line */}
-              <a
-                className="ui grey basic button"
-                onClick={this.hideConfirmation}
-              >
-                <i className="ui icon close">NO</i>
-              </a>
-            </div>
-          ) : (
-            <div className="ui two buttons">
-              <Link
-                className="ui green basic button"
-                to={`/games/edit/${game._id}`}
-              >
-                <i className="ui icon edit"></i>
-              </Link>
-              {/* eslint-disable-next-line */}
-              <a
-                className="ui red basic button"
-                onClick={this.showConfirmation}
-              >
-                <i className="ui icon trash"></i>
-              </a>
-            </div>
-          )}
-        </div>
+
+        {user.token && user.role === 'user' && addToCart}
+        {user.token && user.role === 'admin' && adminActions}
       </div>
     );
   }
 }
 
 GameCard.propTypes = {
-  game: Proptypes.shape({
-    name: Proptypes.string.isRequired,
-    thumbnail: Proptypes.string.isRequired,
-    players: Proptypes.string.isRequired,
-    price: Proptypes.number.isRequired,
-    duration: Proptypes.number.isRequired,
-    featured: Proptypes.bool.isRequired,
+  game: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    players: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired,
+    featured: PropTypes.bool.isRequired,
   }).isRequired,
-  toggleFeatured: Proptypes.func.isRequired,
-  deleteGame: Proptypes.func.isRequired,
+  toggleFeatured: PropTypes.func.isRequired,
+  deleteGame: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    token: PropTypes.string,
+    role: PropTypes.string,
+  }).isRequired,
 };
 
 export default GameCard;

@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _orderBy from 'lodash/orderBy';
 import _find from 'lodash/find';
-import { Route } from 'react-router-dom';
 import GameList from './GameList';
 import GameForm from './GameForm';
 import api from '../api';
+import AdminRoute from './AdminRoute';
 
 const publishers = [
   {
@@ -84,7 +85,8 @@ class GamesPage extends React.Component {
     return (
       <div className="ui container">
         <div className="ui stackable grid">
-          <Route
+          <AdminRoute
+            user={this.props.user}
             path="/games/new"
             render={() => (
               <div className="six wide column">
@@ -97,7 +99,8 @@ class GamesPage extends React.Component {
             )}
           />
 
-          <Route
+          <AdminRoute
+            user={this.props.user}
             path="/games/edit/:_id"
             render={(props) => (
               <div className="six wide column">
@@ -128,6 +131,7 @@ class GamesPage extends React.Component {
                 games={this.state.gameDetails}
                 toggleFeatured={this.toggleFeatured}
                 deleteGame={this.deleteGame}
+                user={this.props.user}
               />
             )}
           </div>
@@ -138,5 +142,12 @@ class GamesPage extends React.Component {
     );
   }
 }
+
+GamesPage.defaultProps = {
+  user: PropTypes.shape({
+    token: PropTypes.string,
+    role: PropTypes.string,
+  }).isRequired,
+};
 
 export default GamesPage;
