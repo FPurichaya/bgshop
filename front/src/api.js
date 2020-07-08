@@ -1,12 +1,6 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
-import path from 'path';
 
-dotenv.config({
-  path: path.join(__dirname, '.env')
-});
-
-axios.defaults.baseURL = `${process.env.API_HOST}`
+axios.defaults.baseURL = `http://api.purichaya.fraczyk.eu`
 
 export default {
   games: {
