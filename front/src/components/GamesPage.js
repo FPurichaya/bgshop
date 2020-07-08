@@ -108,7 +108,7 @@ class GamesPage extends React.Component {
                   publishers={publishers}
                   submit={this.saveGame}
                   game={
-                    _find(this.state.games, {
+                    _find(this.state.gameDetails, {
                       _id: props.match.params._id,
                     }) || {}
                   }
