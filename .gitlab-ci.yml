@@ -4,7 +4,7 @@ stages:
 
 build:
   stage: build
-  environment: 
+  environment:
     name: staging
   image: node:12-alpine
   before_script:
@@ -15,13 +15,17 @@ build:
   artifacts:
     paths:
       - ./front/build
+  only:
+    - master
 
 deploy:
   stage: deploy
-  environment: 
+  environment:
     name: staging
   image: python:latest
   script:
     - pip install awscli
     - cd ./front/build
     - aws s3 sync . s3://$AWS_S3_WEB_BUCKET/
+  only:
+    - master
