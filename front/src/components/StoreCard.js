@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Featured from './Featured';
 import Price from './Price';
 
-class GameCard extends React.Component {
+class StoreCard extends React.Component {
   state = {
     showConfirmation: false,
   };
@@ -14,13 +14,17 @@ class GameCard extends React.Component {
   hideConfirmation = () => this.setState({ showConfirmation: false });
 
   render() {
-    const { game, toggleFeatured, deleteGame, user } = this.props;
+    const { store, toggleFeatured, deleteStore, user } = this.props;
+
     const adminActions = (
       <div className="extra content">
         {this.state.showConfirmation ? (
           <div className="ui two buttons">
             {/* eslint-disable-next-line */}
-            <a className="ui red basic button" onClick={() => deleteGame(game)}>
+            <a
+              className="ui red basic button"
+              onClick={() => deleteStore(store)}
+            >
               <i className="ui icon check">YES</i>
             </a>
             {/* eslint-disable-next-line */}
@@ -32,7 +36,7 @@ class GameCard extends React.Component {
           <div className="ui two buttons">
             <Link
               className="ui green basic button"
-              to={`/games/edit/${game._id}`}
+              to={`/stores/edit/${store._id}`}
             >
               <i className="ui icon edit"></i>
             </Link>
@@ -44,6 +48,7 @@ class GameCard extends React.Component {
         )}
       </div>
     );
+
     const addToCart = (
       <div className="extra content">
         {/* eslint-disable-next-line */}
@@ -55,22 +60,22 @@ class GameCard extends React.Component {
       <div className="ui card">
         <div className="image">
           <span className="ui green ribbon label">
-            $<Price prices={game.price} />
+            $<Price prices={store.price} />
           </span>
           <Featured
-            featured={game.featured}
+            featured={store.featured}
             toggleFeatured={toggleFeatured}
-            gameId={game._id}
+            storeId={store._id}
           />
-          <img src={game.thumbnail} alt="Game Cover" />
+          <img src={store.thumbnail} alt="Store Cover" />
         </div>
         <div className="content">
-          <Link to={`/game/${game._id}`} className="header">
-            {game.name}
+          <Link to={`/store/${store._id}`} className="header">
+            {store.name}
           </Link>
           <div className="meta">
-            <i className="icon users" /> {game.players}&nbsp;
-            <i className="icon wait" /> {game.duration} min.
+            <i className="icon users" /> {store.players}&nbsp;
+            <i className="icon wait" /> {store.duration} min.
           </div>
         </div>
 
@@ -81,7 +86,7 @@ class GameCard extends React.Component {
   }
 }
 
-GameCard.propTypes = {
+StoreCard.propTypes = {
   game: PropTypes.shape({
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
@@ -98,4 +103,4 @@ GameCard.propTypes = {
   }).isRequired,
 };
 
-export default GameCard;
+export default StoreCard;

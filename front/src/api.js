@@ -3,17 +3,17 @@ import axios from 'axios';
 //axios.defaults.baseURL = `https://api.purichaya.fraczyk.eu`
 
 export default {
-  games: {
-    fetchAll: () => axios.get(`/api/authgames`).then((res) => res.data.games),
+  stores: {
+    fetchAll: () => axios.get(`/api/authstores`).then((res) => res.data.stores),
     fetchById: (id) =>
-      axios.get(`/api/authgames/${id}`).then((res) => res.data.game),
-    create: (game) =>
-      axios.post(`/api/authgames`, { game }).then((res) => res.data.game),
-    update: (game) =>
+      axios.get(`/api/authstores/${id}`).then((res) => res.data.store),
+    create: (store) =>
+      axios.post(`/api/authstores`, { store }).then((res) => res.data.store),
+    update: (store) =>
       axios
-        .put(`/api/authgames/${game._id}`, { game })
-        .then((res) => res.data.game),
-    delete: (game) => axios.delete(`/api/authgames/${game._id}`),
+        .put(`/api/authstores/${store._id}`, { store })
+        .then((res) => res.data.store),
+    delete: (store) => axios.delete(`/api/authstores/${store._id}`),
   },
   users: {
     create: (user) => axios.post(`/api/users`, { user }),

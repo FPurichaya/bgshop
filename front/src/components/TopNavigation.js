@@ -5,14 +5,14 @@ import { NavLink } from 'react-router-dom';
 const TopNavigation = ({ isAuthenticated, logout, isAdmin }) => (
   <div className="ui secondary pointing menu">
     <NavLink exact to="/" className="item">
-      BGShop
+      Doll's Closet
     </NavLink>
-    <NavLink exact to="/games" className="item">
-      Games
+    <NavLink exact to="/stores" className="item">
+      Store
     </NavLink>
     {isAdmin && (
-      <NavLink exact to="/games/new" className="item">
-        <i className="icon plus"></i>Add New Game{' '}
+      <NavLink exact to="/stores/new" className="item">
+        <i className="icon plus"></i>Add New Product{' '}
       </NavLink>
     )}
 

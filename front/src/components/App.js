@@ -4,10 +4,8 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import HomePage from './HomePage';
 import TopNavigation from './TopNavigation';
-//import DressPage from '.DressPage';
-import GamesPage from './GamesPage';
-//import ShowDressPage from '.ShowDressPage';
-import ShowGamePage from './ShowGamePage';
+import StoresPage from './StoresPage';
+import ShowStorePage from './ShowStorePage';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
 
@@ -72,8 +70,8 @@ class App extends Component {
 
         <Route path="/" exact component={HomePage} />
         <Route
-          path="/games"
-          render={(props) => <GamesPage {...props} user={this.state.user} />}
+          path="/stores"
+          render={(props) => <StoresPage {...props} user={this.state.user} />}
         />
         <Route
           path="/signup"
@@ -85,7 +83,7 @@ class App extends Component {
           path="/login"
           render={(props) => <LoginPage {...props} login={this.login} />}
         />
-        <Route path="/game/:_id" exact component={ShowGamePage} />
+        <Route path="/game/:_id" exact component={ShowStorePage} />
       </div>
     );
   }

@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GameCard from './GameCard';
+import StoreCard from './StoreCard';
 import Message from './Message';
 
-const GameList = ({ games, toggleFeatured, deleteGame, user }) => (
+const StoreList = ({ stores, toggleFeatured, deleteStore, user }) => (
   <div className="ui four cards">
-    {games.length === 0 ? (
+    {stores.length === 0 ? (
       <div className="ui icon message">
         <Message header="Header" content="Message" type="default" />
       </div>
     ) : (
-      games.map((item) => (
-        <GameCard
-          game={item}
+      stores.map((item) => (
+        <StoreCard
+          store={item}
           key={item._id}
           toggleFeatured={toggleFeatured}
-          deleteGame={deleteGame}
+          deleteStore={deleteStore}
           user={user}
         />
       ))
@@ -23,18 +23,18 @@ const GameList = ({ games, toggleFeatured, deleteGame, user }) => (
   </div>
 );
 
-GameList.propTypes = {
-  games: PropTypes.arrayOf(PropTypes.object).isRequired,
+StoreList.propTypes = {
+  stores: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleFeatured: PropTypes.func.isRequired,
-  deleteGame: PropTypes.func.isRequired,
+  deleteStore: PropTypes.func.isRequired,
   user: PropTypes.shape({
     token: PropTypes.string,
     role: PropTypes.string,
   }).isRequired,
 };
 
-GameList.defaultProps = {
-  games: [],
+StoreList.defaultProps = {
+  stores: [],
 };
 
-export default GameList;
+export default StoreList;

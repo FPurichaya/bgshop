@@ -1,17 +1,17 @@
 import React from 'react';
 import api from '../api';
-import GamesDetails from './GamesDetails';
+import StoreDetails from './StoreDetails';
 
-class ShowGamePage extends React.Component {
+class ShowProductPage extends React.Component {
   state = {
-    game: {},
+    product: {},
     loading: true,
   };
 
   componentDidMount() {
-    api.games
+    api.stores
       .fetchById(this.props.match.params._id)
-      .then((game) => this.setState({ game, loading: false }));
+      .then((product) => this.setState({ product, loading: false }));
   }
 
   render() {
@@ -20,11 +20,11 @@ class ShowGamePage extends React.Component {
         {this.state.loading ? (
           <p>Loading...</p>
         ) : (
-          <GamesDetails game={this.state.game} />
+          <StoreDetails product={this.state.product} />
         )}
       </div>
     );
   }
 }
 
-export default ShowGamePage;
+export default ShowProductPage;

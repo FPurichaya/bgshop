@@ -8,14 +8,12 @@ const initialData = {
   name: '',
   description: '',
   price: 0,
-  duration: 0,
-  players: '',
   featured: false,
-  publisher: 0,
+  producer: 0,
   thumbnail: '',
 };
 
-class GameForm extends Component {
+class StoreForm extends Component {
   state = {
     data: initialData,
     errors: {},
@@ -23,16 +21,16 @@ class GameForm extends Component {
   };
 
   componentDidMount() {
-    if (this.props.game._id) {
-      this.setState({ data: this.props.game });
+    if (this.props.store._id) {
+      this.setState({ data: this.props.store });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
-      this.setState({ data: nextProps.game });
+    if (nextProps.store._id && nextProps.store._id !== this.state.data._id) {
+      this.setState({ data: nextProps.store });
     }
-    if (!nextProps.game._id) {
+    if (!nextProps.store._id) {
       this.setState({ data: initialData });
     }
   }
@@ -41,11 +39,9 @@ class GameForm extends Component {
     const errors = {};
 
     if (!data.name) errors.name = "This field can't be empty";
-    if (!data.players) errors.players = "This field can't be empty";
-    if (!data.publisher) errors.publisher = "This field can't be empty";
+    if (!data.producer) errors.producer = "This field can't be empty";
     if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
-    if (data.price <= 0) errors.price = "Too cheap, don't you think?";
-    if (data.duration <= 0) errors.duration = "Too short, isn't it?";
+    if (data.price <= 0) errors.price = "Best deal, don't you think?";
 
     return errors;
   }
@@ -93,30 +89,30 @@ class GameForm extends Component {
         <div className="ui grid">
           <div className="twelve wide column">
             <div className={errors.name ? 'field error' : 'field'}>
-              <label htmlFor="name">Game Title</label>
+              <label htmlFor="name">Product Title</label>
               <input
                 type="text"
                 id="name"
                 //add name to make universal handler
                 name="name"
-                placeholder="Full game title"
+                placeholder="Full product title"
                 value={data.name}
                 onChange={this.handleStringChange}
               />
               <FormInlineMessage content={errors.name} type="error" />
             </div>
             <div className={errors.description ? 'field error' : 'field'}>
-              <label htmlFor="description">Game Description</label>
+              <label htmlFor="description">Product Description</label>
               <textarea
                 type="text"
                 id="description "
                 //add name to make universal handler
                 name="description"
-                placeholder="Game Description"
+                placeholder="Product Description"
                 value={data.description}
                 onChange={this.handleStringChange}
               />
-              <FormInlineMessage content={errors.description} type="error " />
+              <FormInlineMessage content={errors.description} type="error" />
             </div>
           </div>
           <div className="four wide column">
@@ -195,21 +191,21 @@ class GameForm extends Component {
           <label htmlFor="featured">Featured?</label>
         </div>
 
-        <div className={errors.publishers ? 'field error' : 'field'}>
-          <label>Publishers</label>
+        <div className={errors.producers ? 'field error' : 'field'}>
+          <label>Producers</label>
           <select
-            name="publisher"
-            value={data.publisher}
+            name="producer"
+            value={data.producer}
             onChange={this.handleNumberChange}
           >
-            <option value="0">Choose publisher</option>
-            {this.props.publishers.map((publisher) => (
-              <option value={publisher._id} key={publisher._id}>
-                {publisher.name}
+            <option value="0">Choose producer</option>
+            {this.props.producers.map((producer) => (
+              <option value={producer._id} key={producer._id}>
+                {producer.name}
               </option>
             ))}
           </select>
-          <FormInlineMessage content={errors.publishers} type="error " />
+          <FormInlineMessage content={errors.producers} type="error " />
         </div>
 
         <div className="ui fluid buttons">
@@ -226,15 +222,15 @@ class GameForm extends Component {
   }
 }
 
-GameForm.propTypes = {
-  publishers: PropTypes.arrayOf(
+StoreForm.propTypes = {
+  producers: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
   submit: PropTypes.func.isRequired,
-  game: PropTypes.shape({
+  store: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.string,
@@ -245,8 +241,8 @@ GameForm.propTypes = {
   }).isRequired,
 };
 
-GameForm.defaultProps = {
-  publishers: [],
+StoreForm.defaultProps = {
+  producers: [],
 };
 
-export default GameForm;
+export default StoreForm;
