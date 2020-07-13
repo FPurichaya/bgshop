@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _orderBy from 'lodash/orderBy';
 import _find from 'lodash/find';
-import StoreList from './StoreList';
-import StoreForm from './StoreForm';
+import ProductList from './ProductList';
+import ProductForm from './ProductForm';
 import api from '../api';
 import AdminRoute from './AdminRoute';
 
@@ -30,82 +30,83 @@ const producers = [
   },
 ];
 
-class StoresPage extends React.Component {
+class ProductPage extends React.Component {
   state = {
-    storeDetails: [],
+    productDetails: [],
     loading: true,
   };
 
   componentDidMount() {
-    api.stores
+    api.store
       .fetchAll()
-      .then((stores) =>
-        this.setState({ storeDetails: this.sortStores(stores), loading: false })
+      .then((store) =>
+        this.setState({ productDetails: this.sortStore(store), loading: false })
       );
   }
 
-  sortStores(storeDetails) {
-    return _orderBy(storeDetails, ['featured', 'name'], ['desc', 'asc']);
+  sortStore(productDetails) {
+    return _orderBy(productDetails, ['featured', 'name'], ['desc', 'asc']);
   }
 
-  toggleFeatured = (storeId) => {
-    const store = _find(this.state.storeDetails, { _id: storeId });
-    return this.updateStore({
-      ...store,
-      featured: !store.featured,
+  toggleFeatured = (productId) => {
+    const product = _find(this.state.productDetails, { _id: productId });
+    return this.updateProduct({
+      ...product,
+      featured: !product.featured,
     });
   };
 
-  saveStore = (store) =>
-    (store._id ? this.updateStore(store) : this.addStore(store)).then(() =>
-      this.props.history.push('/stores')
-    );
+  saveProduct = (product) =>
+    (product._id
+      ? this.updateProduct(product)
+      : this.addProduct(product)
+    ).then(() => this.props.history.push('/store'));
 
-  addStore = (storeData) =>
-    api.stores.create(storeData).then((store) =>
+  addProduct = (productData) =>
+    api.store.create(productData).then((product) =>
       this.setState({
-        storeDetails: this.sortStores([...this.state.storeDetails, store]),
-        showStoreForm: false,
+        productDetails: this.sortStore([...this.state.productDetails, product]),
+        showProductForm: false,
       })
     );
 
-  updateStore = (storeData) =>
-    api.stores.update(storeData).then((store) =>
+  updateProduct = (productData) =>
+    api.store.update(productData).then((product) =>
       this.setState({
-        storeDetails: this.sortStores(
-          this.state.storeDetails.map((item) =>
-            item._id === store._id ? store : item
+        productDetails: this.sortStore(
+          this.state.productDetails.map((item) =>
+            item._id === product._id ? product : item
           )
         ),
-        showStoreForm: false,
+        showProductForm: false,
       })
     );
 
-  deleteStore = (store) =>
-    api.stores.delete(store).then(() =>
+  deleteProduct = (product) =>
+    api.store.delete(product).then(() =>
       this.setState({
-        storeDetails: this.state.storeDetails.filter(
-          (item) => item._id !== store._id
+        productDetails: this.state.productDetails.filter(
+          (item) => item._id !== product._id
         ),
       })
     );
 
   render() {
     const numberOfColumns =
-      this.props.location.pathname === '/stores' ? 'sixteen' : 'ten';
+      this.props.location.pathname === '/store' ? 'sixteen' : 'ten';
 
     return (
       <div className="ui container">
         <div className="ui stackable grid">
           <AdminRoute
             user={this.props.user}
-            path="/stores/new"
+            path="/store/new"
             render={() => (
               <div className="six wide column">
-                <StoreForm
+                <ProductForm
                   producers={producers}
-                  submit={this.saveStore}
-                  store={{}}
+                  submit={this.saveProduct}
+                  product={{}}
                 />
               </div>
             )}
@@ -113,14 +114,14 @@ class StoresPage extends React.Component {
 
           <AdminRoute
             user={this.props.user}
-            path="/stores/edit/:_id"
+            path="/store/edit/:_id"
             render={(props) => (
               <div className="six wide column">
-                <StoreForm
+                <ProductForm
                   producers={producers}
-                  submit={this.saveStore}
-                  store={
-                    _find(this.state.storeDetails, {
+                  submit={this.saveProduct}
+                  product={
+                    _find(this.state.productDetails, {
                       _id: props.match.params._id,
                     }) || {}
                   }
@@ -135,14 +136,14 @@ class StoresPage extends React.Component {
                 <i className="notched circle loading icon"></i>
                 <div className="content">
                   <div className="header">Wait a second!!</div>
-                  <p>Stores collection is loading...</p>
+                  <p>Product collection is loading...</p>
                 </div>
               </div>
             ) : (
-              <StoreList
-                stores={this.state.storeDetails}
+              <ProductList
+                store={this.state.productDetails}
                 toggleFeatured={this.toggleFeatured}
-                deleteStore={this.deleteStore}
+                deleteProduct={this.deleteProduct}
                 user={this.props.user}
               />
             )}
@@ -155,11 +156,11 @@ class StoresPage extends React.Component {
   }
 }
 
-StoresPage.defaultProps = {
+ProductPage.defaultProps = {
   user: PropTypes.shape({
     token: PropTypes.string,
     role: PropTypes.string,
   }).isRequired,
 };
 
-export default StoresPage;
+export default ProductPage;

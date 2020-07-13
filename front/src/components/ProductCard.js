@@ -1,11 +1,10 @@
-//eslint-disable jsx-a11y/anchor-is-valid
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Featured from './Featured';
 import Price from './Price';
 
-class StoreCard extends React.Component {
+class ProductCard extends React.Component {
   state = {
     showConfirmation: false,
   };
@@ -14,7 +13,7 @@ class StoreCard extends React.Component {
   hideConfirmation = () => this.setState({ showConfirmation: false });
 
   render() {
-    const { store, toggleFeatured, deleteStore, user } = this.props;
+    const { product, toggleFeatured, deleteProduct, user } = this.props;
 
     const adminActions = (
       <div className="extra content">
@@ -23,7 +22,7 @@ class StoreCard extends React.Component {
             {/* eslint-disable-next-line */}
             <a
               className="ui red basic button"
-              onClick={() => deleteStore(store)}
+              onClick={() => deleteProduct(product)}
             >
               <i className="ui icon check">YES</i>
             </a>
@@ -36,7 +35,7 @@ class StoreCard extends React.Component {
           <div className="ui two buttons">
             <Link
               className="ui green basic button"
-              to={`/stores/edit/${store._id}`}
+              to={`/store/edit/${product._id}`}
             >
               <i className="ui icon edit"></i>
             </Link>
@@ -60,22 +59,22 @@ class StoreCard extends React.Component {
       <div className="ui card">
         <div className="image">
           <span className="ui green ribbon label">
-            $<Price prices={store.price} />
+            $<Price prices={product.price} />
           </span>
           <Featured
-            featured={store.featured}
+            featured={product.featured}
             toggleFeatured={toggleFeatured}
-            storeId={store._id}
+            productId={product._id}
           />
-          <img src={store.thumbnail} alt="Store Cover" />
+          <img src={product.thumbnail} alt="Product Cover" />
         </div>
         <div className="content">
-          <Link to={`/store/${store._id}`} className="header">
-            {store.name}
+          <Link to={`/store/${product._id}`} className="header">
+            {product.name}
           </Link>
           <div className="meta">
-            <i className="icon users" /> {store.players}&nbsp;
-            <i className="icon wait" /> {store.duration} min.
+            <i className="icon users" /> {product.players}&nbsp;
+            <i className="icon wait" /> {product.duration} min.
           </div>
         </div>
 
@@ -86,8 +85,8 @@ class StoreCard extends React.Component {
   }
 }
 
-StoreCard.propTypes = {
-  game: PropTypes.shape({
+ProductCard.propTypes = {
+  product: PropTypes.shape({
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     players: PropTypes.string.isRequired,
@@ -96,11 +95,11 @@ StoreCard.propTypes = {
     featured: PropTypes.bool.isRequired,
   }).isRequired,
   toggleFeatured: PropTypes.func.isRequired,
-  deleteGame: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
   user: PropTypes.shape({
     token: PropTypes.string,
     role: PropTypes.string,
   }).isRequired,
 };
 
-export default StoreCard;
+export default ProductCard;

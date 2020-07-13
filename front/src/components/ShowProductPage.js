@@ -1,6 +1,6 @@
 import React from 'react';
 import api from '../api';
-import StoreDetails from './StoreDetails';
+import ProductDetails from './ProductDetails';
 
 class ShowProductPage extends React.Component {
   state = {
@@ -9,7 +9,7 @@ class ShowProductPage extends React.Component {
   };
 
   componentDidMount() {
-    api.stores
+    api.store
       .fetchById(this.props.match.params._id)
       .then((product) => this.setState({ product, loading: false }));
   }
@@ -20,7 +20,7 @@ class ShowProductPage extends React.Component {
         {this.state.loading ? (
           <p>Loading...</p>
         ) : (
-          <StoreDetails product={this.state.product} />
+          <ProductDetails product={this.state.product} />
         )}
       </div>
     );
