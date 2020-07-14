@@ -14,7 +14,6 @@ class ProductCard extends React.Component {
 
   render() {
     const { product, toggleFeatured, deleteProduct, user } = this.props;
-
     const adminActions = (
       <div className="extra content">
         {this.state.showConfirmation ? (
@@ -47,7 +46,6 @@ class ProductCard extends React.Component {
         )}
       </div>
     );
-
     const addToCart = (
       <div className="extra content">
         {/* eslint-disable-next-line */}
@@ -69,7 +67,7 @@ class ProductCard extends React.Component {
           <img src={product.thumbnail} alt="Product Cover" />
         </div>
         <div className="content">
-          <Link to={`/store/${product._id}`} className="header">
+          <Link to={`/product/${product._id}`} className="header">
             {product.name}
           </Link>
           <div className="meta">
