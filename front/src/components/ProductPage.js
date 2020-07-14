@@ -10,23 +10,23 @@ import AdminRoute from './AdminRoute';
 const producers = [
   {
     _id: '1',
-    name: 'JK Lovely Dolls',
-  },
-  {
-    _id: '2',
-    name: 'KASAMA No.88',
-  },
-  {
-    _id: '3',
-    name: 'JUNG',
-  },
-  {
-    _id: '4',
     name: 'Saluem Salue',
   },
   {
+    _id: '2',
+    name: 'JUNG',
+  },
+  {
+    _id: '3',
+    name: 'JK LovelyDolls',
+  },
+  {
+    _id: '4',
+    name: 'KASAMA No.88',
+  },
+  {
     _id: '5',
-    name: 'Madam Sugar',
+    name: 'SINDY',
   },
 ];
 
@@ -37,17 +37,14 @@ class ProductPage extends React.Component {
   };
 
   componentDidMount() {
-    api.product
+    api.store
       .fetchAll()
-      .then((product) =>
-        this.setState({
-          productDetails: this.sortProduct(product),
-          loading: false,
-        })
+      .then((store) =>
+        this.setState({ productDetails: this.sortStore(store), loading: false })
       );
   }
 
-  sortProduct(productDetails) {
+  sortStore(productDetails) {
     return _orderBy(productDetails, ['featured', 'name'], ['desc', 'asc']);
   }
 
@@ -63,23 +60,20 @@ class ProductPage extends React.Component {
     (product._id
       ? this.updateProduct(product)
       : this.addProduct(product)
-    ).then(() => this.props.history.push('/product'));
+    ).then(() => this.props.history.push('/store'));
 
   addProduct = (productData) =>
-    api.product.create(productData).then((product) =>
+    api.store.create(productData).then((product) =>
       this.setState({
-        productDetails: this.sortProduct([
-          ...this.state.productDetails,
-          product,
-        ]),
+        productDetails: this.sortStore([...this.state.productDetails, product]),
         showProductForm: false,
       })
     );
 
   updateProduct = (productData) =>
-    api.product.update(productData).then((product) =>
+    api.store.update(productData).then((product) =>
       this.setState({
-        productDetails: this.sortProduct(
+        productDetails: this.sortStore(
           this.state.productDetails.map((item) =>
             item._id === product._id ? product : item
           )
@@ -89,7 +83,7 @@ class ProductPage extends React.Component {
     );
 
   deleteProduct = (product) =>
-    api.product.delete(product).then(() =>
+    api.store.delete(product).then(() =>
       this.setState({
         productDetails: this.state.productDetails.filter(
           (item) => item._id !== product._id
@@ -99,14 +93,14 @@ class ProductPage extends React.Component {
 
   render() {
     const numberOfColumns =
-      this.props.location.pathname === '/product' ? 'sixteen' : 'ten';
+      this.props.location.pathname === '/store' ? 'sixteen' : 'ten';
 
     return (
       <div className="ui container">
         <div className="ui stackable grid">
           <AdminRoute
             user={this.props.user}
-            path="/product/new"
+            path="/store/new"
             render={() => (
               <div className="six wide column">
                 <ProductForm
@@ -120,7 +114,7 @@ class ProductPage extends React.Component {
 
           <AdminRoute
             user={this.props.user}
-            path="/product/edit/:_id"
+            path="/store/edit/:_id"
             render={(props) => (
               <div className="six wide column">
                 <ProductForm
@@ -147,7 +141,7 @@ class ProductPage extends React.Component {
               </div>
             ) : (
               <ProductList
-                product={this.state.productDetails}
+                store={this.state.productDetails}
                 toggleFeatured={this.toggleFeatured}
                 deleteProduct={this.deleteProduct}
                 user={this.props.user}

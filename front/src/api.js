@@ -3,17 +3,17 @@ import axios from 'axios';
 //axios.defaults.baseURL = `https://api.purichaya.fraczyk.eu`
 
 export default {
-  stores: {
-    fetchAll: () => axios.get(`/api/authstores`).then((res) => res.data.stores),
+  store: {
+    fetchAll: () => axios.get(`/api/authstore`).then((res) => res.data.store),
     fetchById: (id) =>
-      axios.get(`/api/authstores/${id}`).then((res) => res.data.store),
-    create: (store) =>
-      axios.post(`/api/authstores`, { store }).then((res) => res.data.store),
-    update: (store) =>
+      axios.get(`/api/authstore/${id}`).then((res) => res.data.product),
+    create: (product) =>
+      axios.post(`/api/authstore`, { product }).then((res) => res.data.product),
+    update: (product) =>
       axios
-        .put(`/api/authstores/${store._id}`, { store })
-        .then((res) => res.data.store),
-    delete: (store) => axios.delete(`/api/authstores/${store._id}`),
+        .put(`/api/authstore/${product._id}`, { product })
+        .then((res) => res.data.product),
+    delete: (product) => axios.delete(`/api/authstore/${product._id}`),
   },
   users: {
     create: (user) => axios.post(`/api/users`, { user }),
