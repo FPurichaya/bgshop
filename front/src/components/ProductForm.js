@@ -13,7 +13,7 @@ const initialData = {
   thumbnail: '',
 };
 
-class StoreForm extends Component {
+class ProductForm extends Component {
   state = {
     data: initialData,
     errors: {},
@@ -21,16 +21,19 @@ class StoreForm extends Component {
   };
 
   componentDidMount() {
-    if (this.props.store._id) {
-      this.setState({ data: this.props.store });
+    if (this.props.product._id) {
+      this.setState({ data: this.props.product });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.store._id && nextProps.store._id !== this.state.data._id) {
-      this.setState({ data: nextProps.store });
+    if (
+      nextProps.product._id &&
+      nextProps.product._id !== this.state.data._id
+    ) {
+      this.setState({ data: nextProps.product });
     }
-    if (!nextProps.store._id) {
+    if (!nextProps.product._id) {
       this.setState({ data: initialData });
     }
   }
@@ -222,7 +225,7 @@ class StoreForm extends Component {
   }
 }
 
-StoreForm.propTypes = {
+ProductForm.propTypes = {
   producers: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -230,7 +233,7 @@ StoreForm.propTypes = {
     })
   ).isRequired,
   submit: PropTypes.func.isRequired,
-  store: PropTypes.shape({
+  product: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.string,
@@ -241,8 +244,8 @@ StoreForm.propTypes = {
   }).isRequired,
 };
 
-StoreForm.defaultProps = {
+ProductForm.defaultProps = {
   producers: [],
 };
 
-export default StoreForm;
+export default ProductForm;

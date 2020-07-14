@@ -37,14 +37,17 @@ class ProductPage extends React.Component {
   };
 
   componentDidMount() {
-    api.store
+    api.product
       .fetchAll()
-      .then((store) =>
-        this.setState({ productDetails: this.sortStore(store), loading: false })
+      .then((product) =>
+        this.setState({
+          productDetails: this.sortProduct(product),
+          loading: false,
+        })
       );
   }
 
-  sortStore(productDetails) {
+  sortProduct(productDetails) {
     return _orderBy(productDetails, ['featured', 'name'], ['desc', 'asc']);
   }
 
@@ -60,20 +63,23 @@ class ProductPage extends React.Component {
     (product._id
       ? this.updateProduct(product)
       : this.addProduct(product)
-    ).then(() => this.props.history.push('/store'));
+    ).then(() => this.props.history.push('/product'));
 
   addProduct = (productData) =>
-    api.store.create(productData).then((product) =>
+    api.product.create(productData).then((product) =>
       this.setState({
-        productDetails: this.sortStore([...this.state.productDetails, product]),
+        productDetails: this.sortProduct([
+          ...this.state.productDetails,
+          product,
+        ]),
         showProductForm: false,
       })
     );
 
   updateProduct = (productData) =>
-    api.store.update(productData).then((product) =>
+    api.product.update(productData).then((product) =>
       this.setState({
-        productDetails: this.sortStore(
+        productDetails: this.sortProduct(
           this.state.productDetails.map((item) =>
             item._id === product._id ? product : item
           )
@@ -83,7 +89,7 @@ class ProductPage extends React.Component {
     );
 
   deleteProduct = (product) =>
-    api.store.delete(product).then(() =>
+    api.product.delete(product).then(() =>
       this.setState({
         productDetails: this.state.productDetails.filter(
           (item) => item._id !== product._id
@@ -93,14 +99,14 @@ class ProductPage extends React.Component {
 
   render() {
     const numberOfColumns =
-      this.props.location.pathname === '/store' ? 'sixteen' : 'ten';
+      this.props.location.pathname === '/product' ? 'sixteen' : 'ten';
 
     return (
       <div className="ui container">
         <div className="ui stackable grid">
           <AdminRoute
             user={this.props.user}
-            path="/store/new"
+            path="/product/new"
             render={() => (
               <div className="six wide column">
                 <ProductForm
@@ -114,7 +120,7 @@ class ProductPage extends React.Component {
 
           <AdminRoute
             user={this.props.user}
-            path="/store/edit/:_id"
+            path="/product/edit/:_id"
             render={(props) => (
               <div className="six wide column">
                 <ProductForm
@@ -141,7 +147,7 @@ class ProductPage extends React.Component {
               </div>
             ) : (
               <ProductList
-                store={this.state.productDetails}
+                product={this.state.productDetails}
                 toggleFeatured={this.toggleFeatured}
                 deleteProduct={this.deleteProduct}
                 user={this.props.user}
