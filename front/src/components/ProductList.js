@@ -10,7 +10,7 @@ const ProductList = ({ store, toggleFeatured, deleteProduct, user }) => (
         <Message header="Header" content="Message" type="default" />
       </div>
     ) : (
-      product.map((item) => (
+      store.map((item) => (
         <ProductCard
           product={item}
           key={item._id}
@@ -34,7 +34,7 @@ ProductList.propTypes = {
 };
 
 ProductList.defaultProps = {
-  stores: [],
+  store: [],
 };
 
 export default ProductList;
