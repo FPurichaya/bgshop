@@ -79,7 +79,7 @@ class ProductForm extends Component {
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: parseInt(e.target.value, 10),
+        [e.target.name]: parseInt(e.target.value, 10) || '',
       },
     });
   handleCheckboxChange = (e) =>
