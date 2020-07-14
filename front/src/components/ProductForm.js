@@ -8,10 +8,8 @@ const initialData = {
   name: '',
   description: '',
   price: 0,
-  duration: 0,
-  players: '',
   featured: false,
-  publisher: 0,
+  producer: 0,
   thumbnail: '',
 };
 
@@ -45,7 +43,7 @@ class ProductForm extends Component {
 
     if (!data.name) errors.name = "This field can't be empty";
     if (!data.players) errors.players = "This field can't be empty";
-    if (!data.publisher) errors.publisher = "This field can't be empty";
+    if (!data.producer) errors.producer = "This field can't be empty";
     if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
     if (data.price <= 0) errors.price = "Too cheap, don't you think?";
     if (data.duration <= 0) errors.duration = "Too short, isn't it?";
@@ -198,21 +196,21 @@ class ProductForm extends Component {
           <label htmlFor="featured">Featured?</label>
         </div>
 
-        <div className={errors.publishers ? 'field error' : 'field'}>
-          <label>Publishers</label>
+        <div className={errors.producers ? 'field error' : 'field'}>
+          <label>Producers</label>
           <select
-            name="publisher"
-            value={data.publisher}
+            name="producer"
+            value={data.producer}
             onChange={this.handleNumberChange}
           >
-            <option value="0">Choose publisher</option>
-            {this.props.publishers.map((publisher) => (
-              <option value={publisher._id} key={publisher._id}>
-                {publisher.name}
+            <option value="0">Choose producer</option>
+            {this.props.producers.map((producer) => (
+              <option value={producer._id} key={producer._id}>
+                {producer.name}
               </option>
             ))}
           </select>
-          <FormInlineMessage content={errors.publishers} type="error " />
+          <FormInlineMessage content={errors.producers} type="error " />
         </div>
 
         <div className="ui fluid buttons">
@@ -230,7 +228,7 @@ class ProductForm extends Component {
 }
 
 ProductForm.propTypes = {
-  publishers: PropTypes.arrayOf(
+  producers: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -249,7 +247,7 @@ ProductForm.propTypes = {
 };
 
 ProductForm.defaultProps = {
-  publishers: [],
+  producers: [],
 };
 
 export default ProductForm;
