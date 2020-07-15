@@ -30,6 +30,21 @@ const producers = [
   },
 ];
 
+const sizes = [
+  {
+    _id: '1',
+    name: '1/12',
+  },
+  {
+    _id: '2',
+    name: '1/8',
+  },
+  {
+    _id: '3',
+    name: '1/6',
+  },
+];
+
 class ProductPage extends React.Component {
   state = {
     productDetails: [],
@@ -105,6 +120,7 @@ class ProductPage extends React.Component {
               <div className="six wide column">
                 <ProductForm
                   producers={producers}
+                  sizes={sizes}
                   submit={this.saveProduct}
                   product={{}}
                 />
@@ -119,6 +135,7 @@ class ProductPage extends React.Component {
               <div className="six wide column">
                 <ProductForm
                   producers={producers}
+                  sizes={sizes}
                   submit={this.saveProduct}
                   product={
                     _find(this.state.productDetails, {

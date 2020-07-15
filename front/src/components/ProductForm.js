@@ -12,6 +12,7 @@ const initialData = {
   duration: 0,
   players: '',
   producer: 0,
+  size: 0,
   thumbnail: '',
 };
 
@@ -46,6 +47,7 @@ class ProductForm extends Component {
     if (!data.name) errors.name = "This field can't be empty";
     if (!data.players) errors.players = "This field can't be empty";
     if (!data.producer) errors.producer = "This field can't be empty";
+    if (!data.size) errors.size = "This field can't be empty";
     if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
     if (data.price <= 0) errors.price = "Too cheap, don't you think?";
     if (data.duration <= 0) errors.duration = "Too short, isn't it?";
@@ -199,7 +201,7 @@ class ProductForm extends Component {
         </div>
 
         <div className={errors.producers ? 'field error' : 'field'}>
-          <label>Producers</label>
+          <label>Producer</label>
           <select
             name="producer"
             value={data.producer}
@@ -213,6 +215,23 @@ class ProductForm extends Component {
             ))}
           </select>
           <FormInlineMessage content={errors.producers} type="error " />
+        </div>
+
+        <div className={errors.sizes ? 'field error' : 'field'}>
+          <label>Size</label>
+          <select
+            name="size"
+            value={data.size}
+            onChange={this.handleNumberChange}
+          >
+            <option value="0">Choose size</option>
+            {this.props.sizes.map((size) => (
+              <option value={size._id} key={size._id}>
+                {size.name}
+              </option>
+            ))}
+          </select>
+          <FormInlineMessage content={errors.sizes} type="error " />
         </div>
 
         <div className="ui fluid buttons">
