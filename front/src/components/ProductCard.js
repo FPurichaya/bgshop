@@ -71,7 +71,7 @@ class ProductCard extends React.Component {
             {product.name}
           </Link>
           <div className="meta">
-            <i className="icon wait" /> {product.instock} prices.
+            <i className="icon wait" /> {product.instock}
           </div>
         </div>
 
