@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import mongodb from 'mongodb';
 import unsafestore from './routes/unsafestore';
 import unsafeproducers from './routes/unsafeproducers';
+import unsafesizes from './routes/unsafesizes';
 import store from './routes/store';
 import authstore from './routes/authstore';
 import users from './routes/users';
@@ -35,6 +36,7 @@ app.use(bodyParser.json());
 // routes
 app.use('/api/unsafestore', unsafestore);
 app.use('/api/unsafeproducers', unsafeproducers);
+app.use('/api/unsafesizes', unsafesizes);
 app.use('/api/store', store);
 app.use('/api/authstore', authstore);
 app.use('/api/users', users);

@@ -10,6 +10,7 @@ const validate = (data) => {
   if (!data.name) errors.name = "This field can't be blank";
   if (!data.players) errors.players = "This field can't be blank";
   if (!data.producer) errors.producer = 'You must choose producer';
+  if (!data.size) errors.size = 'You must choose size';
   if (!data.thumbnail) errors.thumbnail = "This field can't be blank";
   if (data.price <= 0) errors.price = "Too cheap, don't you think?";
   if (data.duration <= 0) errors.duration = "Too short, isn't it?";

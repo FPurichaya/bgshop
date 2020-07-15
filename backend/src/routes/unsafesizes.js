@@ -7,72 +7,67 @@ const validate = (data) => {
   const errors = {};
 
   if (!data.name) errors.name = "This field can't be blank";
-  if (!data.players) errors.players = "This field can't be blank";
-  if (!data.producer) errors.producer = 'You must choose producer';
-  if (!data.size) errors.size = 'You must choose size';
-  if (!data.thumbnail) errors.thumbnail = "This field can't be blank";
-  if (data.price <= 0) errors.price = "Too cheap, don't you think?";
-  if (data.duration <= 0) errors.duration = "Too short, isn't it?";
+  if (!data.website) errors.website = "This field can't be blank";
 
   return errors;
 };
 
 router.get('/', (req, res) => {
   const db = req.app.get('db');
-  db.collection('store')
+  db.collection('sizes')
     .find({})
-    .toArray((err, store) => {
+    .toArray((err, sizes) => {
       if (err) {
         res.status(500).json({ errors: { global: err } });
         return;
       }
 
-      res.json({ store });
+      res.json({ sizes });
     });
 });
 
-router.get('/:_id', (req, res) => {
+router.get('/:id', (req, res) => {
   const db = req.app.get('db');
-  db.collection('store').findOne(
-    { _id: new mongodb.ObjectId(req.params._id) },
-    (err, product) => {
+  db.collection('sizes').findOne(
+    { _id: new mongodb.ObjectId(req.params.id) },
+    (err, size) => {
       if (err) {
         res.status(500).json({ errors: { global: err } });
         return;
       }
 
-      res.json({ product });
+      res.json({ size });
     }
   );
 });
 
 router.post('/', (req, res) => {
   const db = req.app.get('db');
-  const errors = validate(req.body.product);
+  const errors = validate(req.body.size);
 
   if (Object.keys(errors).length === 0) {
-    db.collection('store').insertOne(req.body.product, (err, r) => {
+    db.collection('sizes').insertOne(req.body.size, (err, r) => {
       if (err) {
         res.status(500).json({ errors: { global: err } });
         return;
       }
 
-      res.json({ product: r.ops[0] });
+      res.json({ size: r.ops[0] });
     });
   } else {
     res.status(400).json({ errors });
   }
 });
 
-router.put('/:_id', (req, res) => {
+router.put('/:id', (req, res) => {
   const db = req.app.get('db');
-  const { _id, ...productData } = req.body.product;
-  const errors = validate(productData);
+  const { _id, ...sizeData } = req.body.size;
+  const errors = validate(sizeData);
 
   if (Object.keys(errors).length === 0) {
-    db.collection('store').findOneAndUpdate(
-      { _id: new mongodb.ObjectId(req.params._id) },
-      { $set: productData },
+    db.collection('sizes').findOneAndUpdate(
+      { _id: new mongodb.ObjectId(req.params.id) },
+      { $set: sizeData },
       { returnOriginal: false },
       (err, r) => {
         if (err) {
@@ -80,7 +75,7 @@ router.put('/:_id', (req, res) => {
           return;
         }
 
-        res.json({ product: r.value });
+        res.json({ size: r.value });
       }
     );
   } else {
@@ -88,11 +83,11 @@ router.put('/:_id', (req, res) => {
   }
 });
 
-router.delete('/:_id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const db = req.app.get('db');
 
-  db.collection('store').deleteOne(
-    { _id: new mongodb.ObjectId(req.params._id) },
+  db.collection('sizes').deleteOne(
+    { _id: new mongodb.ObjectId(req.params.id) },
     (err) => {
       if (err) {
         res.status(500).json({ errors: { global: err } });
