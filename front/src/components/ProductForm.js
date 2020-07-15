@@ -9,6 +9,8 @@ const initialData = {
   description: '',
   price: 0,
   featured: false,
+  duration: 0,
+  players: '',
   producer: 0,
   thumbnail: '',
 };
