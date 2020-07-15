@@ -9,8 +9,7 @@ const initialData = {
   description: '',
   price: 0,
   featured: false,
-  duration: 0,
-  players: '',
+  instock: 0,
   producer: 0,
   size: 0,
   thumbnail: '',
@@ -45,12 +44,11 @@ class ProductForm extends Component {
     const errors = {};
 
     if (!data.name) errors.name = "This field can't be empty";
-    if (!data.players) errors.players = "This field can't be empty";
     if (!data.producer) errors.producer = "This field can't be empty";
     if (!data.size) errors.size = "This field can't be empty";
     if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
     if (data.price <= 0) errors.price = "Too cheap, don't you think?";
-    if (data.duration <= 0) errors.duration = "Too short, isn't it?";
+    if (data.instock <= 0) errors.instock = 'Add the number of your product';
 
     return errors;
   }
@@ -148,7 +146,7 @@ class ProductForm extends Component {
           <FormInlineMessage content={errors.thumbnail} type="error " />
         </div>
 
-        <div className="three fields">
+        <div className="two fields">
           <div className={errors.price ? 'field error' : 'field'}>
             <label htmlFor="price">Price</label>
             <input
@@ -162,30 +160,17 @@ class ProductForm extends Component {
             <FormInlineMessage content={errors.price} type="error " />
           </div>
 
-          <div className={errors.duration ? 'field error' : 'field'}>
-            <label htmlFor="duration">duration (in minutes)</label>
+          <div className={errors.instock ? 'field error' : 'field'}>
+            <label htmlFor="instock">In stock (pieces)</label>
             <input
               type="number"
-              id="duration"
+              id="instock"
               //add name to make universal handler
-              name="duration"
-              value={data.duration}
+              name="instock"
+              value={data.instock}
               onChange={this.handleNumberChange}
             />
-            <FormInlineMessage content={errors.duration} type="error " />
-          </div>
-
-          <div className={errors.players ? 'field error' : 'field'}>
-            <label htmlFor="players">Players</label>
-            <input
-              type="text"
-              id="players"
-              //add name to make universal handler
-              name="players"
-              value={data.players}
-              onChange={this.handleStringChange}
-            />
-            <FormInlineMessage content={errors.players} type="error " />
+            <FormInlineMessage content={errors.instock} type="error " />
           </div>
         </div>
 
@@ -260,10 +245,9 @@ ProductForm.propTypes = {
     _id: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.string,
-    players: PropTypes.string,
     price: PropTypes.number,
     featured: PropTypes.bool,
-    duration: PropTypes.number,
+    instock: PropTypes.number,
   }).isRequired,
 };
 

@@ -71,8 +71,7 @@ class ProductCard extends React.Component {
             {product.name}
           </Link>
           <div className="meta">
-            <i className="icon users" /> {product.players}&nbsp;
-            <i className="icon wait" /> {product.duration} min.
+            <i className="icon wait" /> {product.instock} prices.
           </div>
         </div>
 
@@ -87,9 +86,8 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    players: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    duration: PropTypes.number.isRequired,
+    instock: PropTypes.number.isRequired,
     featured: PropTypes.bool.isRequired,
   }).isRequired,
   toggleFeatured: PropTypes.func.isRequired,

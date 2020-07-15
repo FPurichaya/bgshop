@@ -18,12 +18,8 @@ const ProductDetails = ({ product }) => (
         <table className="ui table">
           <tbody>
             <tr>
-              <td>Number of Players:</td>
-              <td>{product.players}</td>
-            </tr>
-            <tr>
-              <td>Duration:</td>
-              <td>{product.duration}</td>
+              <td>In stock:</td>
+              <td>{product.instock}</td>
             </tr>
           </tbody>
         </table>
@@ -39,9 +35,8 @@ ProductDetails.propTypes = {
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    players: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    duration: PropTypes.number.isRequired,
+    instock: PropTypes.number.isRequired,
   }).isRequired,
 };
 
