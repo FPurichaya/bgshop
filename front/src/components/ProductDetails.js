@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Price from './Price';
 
 const ProductDetails = ({ product }) => (
   <div>
@@ -24,7 +25,9 @@ const ProductDetails = ({ product }) => (
           </tbody>
         </table>
 
-        <p className="ui green huge label">{product.price}</p>
+        <p className="ui green huge label">
+          $<Price prices={product.price} />
+        </p>
       </div>
     </div>
   </div>

@@ -8,7 +8,6 @@ const validate = (data) => {
   const errors = {};
 
   if (!data.name) errors.name = "This field can't be blank";
-  if (!data.players) errors.players = "This field can't be blank";
   if (!data.producer) errors.producer = 'You must choose producer';
   if (!data.size) errors.size = 'You must choose size';
   if (!data.thumbnail) errors.thumbnail = "This field can't be blank";
