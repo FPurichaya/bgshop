@@ -14,7 +14,12 @@ const ProductDetails = ({ product }) => (
       </div>
 
       <div className="eight wide column">
-        <h4>{product.description}</h4>
+        {product.description.split('\n').map((text, index) => (
+          <React.Fragment key={`${text}-${index}`}>
+            {text}
+            <br />
+          </React.Fragment>
+        ))}
 
         <table className="ui table">
           <tbody>
