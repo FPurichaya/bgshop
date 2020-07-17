@@ -4,7 +4,7 @@ import Price from './Price';
 
 const ProductDetails = ({ product }) => (
   <div>
-    <h1 className="ui center aligned dividing header">{product.name}</h1>
+    <h1 className="ui left aligned dividing header">{product.name}</h1>
 
     <div className="ui stackable grid">
       <div className="six wide column">
@@ -13,8 +13,8 @@ const ProductDetails = ({ product }) => (
         </div>
       </div>
 
-      <div className="ten wide column">
-        <p>{product.description}</p>
+      <div className="eight wide column">
+        <h4>{product.description}</h4>
 
         <table className="ui table">
           <tbody>
