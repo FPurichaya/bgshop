@@ -1,13 +1,12 @@
-//eslint-disable jsx-a11y/anchor-is-valid
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Featured = ({ featured, toggleFeatured, gameId }) => (
+const Featured = ({ featured, toggleFeatured, productId }) => (
   <span>
     {featured ? (
       /* eslint-disable-next-line */
       <a
-        onClick={() => toggleFeatured(gameId)}
+        onClick={() => toggleFeatured(productId)}
         className="ui right yellow corner label"
       >
         <i className="star icon"></i>
@@ -15,7 +14,7 @@ const Featured = ({ featured, toggleFeatured, gameId }) => (
     ) : (
       /* eslint-disable-next-line */
       <a
-        onClick={() => toggleFeatured(gameId)}
+        onClick={() => toggleFeatured(productId)}
         className="ui right corner label"
       >
         <i className="star icon"></i>
@@ -27,7 +26,7 @@ const Featured = ({ featured, toggleFeatured, gameId }) => (
 Featured.propTypes = {
   featured: PropTypes.bool.isRequired,
   toggleFeatured: PropTypes.func.isRequired,
-  gameId: PropTypes.string.isRequired,
+  productId: PropTypes.string.isRequired,
 };
 
 export default Featured;

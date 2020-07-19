@@ -7,7 +7,7 @@ class LoginPage extends Component {
   submit = (data) =>
     api.users.login(data).then((token) => {
       this.props.login(token);
-      this.props.history.push('/games');
+      this.props.history.push('/stores');
     });
 
   render() {

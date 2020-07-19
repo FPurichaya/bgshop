@@ -8,14 +8,14 @@ const initialData = {
   name: '',
   description: '',
   price: 0,
-  duration: 0,
-  players: '',
   featured: false,
-  publisher: 0,
+  instock: 0,
+  producer: 0,
+  size: 0,
   thumbnail: '',
 };
 
-class GameForm extends Component {
+class ProductForm extends Component {
   state = {
     data: initialData,
     errors: {},
@@ -23,16 +23,19 @@ class GameForm extends Component {
   };
 
   componentDidMount() {
-    if (this.props.game._id) {
-      this.setState({ data: this.props.game });
+    if (this.props.product._id) {
+      this.setState({ data: this.props.product });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
-      this.setState({ data: nextProps.game });
+    if (
+      nextProps.product._id &&
+      nextProps.product._id !== this.state.data._id
+    ) {
+      this.setState({ data: nextProps.product });
     }
-    if (!nextProps.game._id) {
+    if (!nextProps.product._id) {
       this.setState({ data: initialData });
     }
   }
@@ -41,11 +44,11 @@ class GameForm extends Component {
     const errors = {};
 
     if (!data.name) errors.name = "This field can't be empty";
-    if (!data.players) errors.players = "This field can't be empty";
-    if (!data.publisher) errors.publisher = "This field can't be empty";
+    if (!data.producer) errors.producer = "This field can't be empty";
+    if (!data.size) errors.size = "This field can't be empty";
     if (!data.thumbnail) errors.thumbnail = "This field can't be empty";
     if (data.price <= 0) errors.price = "Too cheap, don't you think?";
-    if (data.duration <= 0) errors.duration = "Too short, isn't it?";
+    if (data.instock <= 0) errors.instock = 'Add the number of your product';
 
     return errors;
   }
@@ -76,7 +79,7 @@ class GameForm extends Component {
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: parseInt(e.target.value, 10),
+        [e.target.name]: parseInt(e.target.value, 10) || '',
       },
     });
   handleCheckboxChange = (e) =>
@@ -93,26 +96,26 @@ class GameForm extends Component {
         <div className="ui grid">
           <div className="twelve wide column">
             <div className={errors.name ? 'field error' : 'field'}>
-              <label htmlFor="name">Game Title</label>
+              <label htmlFor="name">Product Title</label>
               <input
                 type="text"
                 id="name"
                 //add name to make universal handler
                 name="name"
-                placeholder="Full game title"
+                placeholder="Full product title"
                 value={data.name}
                 onChange={this.handleStringChange}
               />
               <FormInlineMessage content={errors.name} type="error" />
             </div>
             <div className={errors.description ? 'field error' : 'field'}>
-              <label htmlFor="description">Game Description</label>
+              <label htmlFor="description">Product Description</label>
               <textarea
                 type="text"
                 id="description "
                 //add name to make universal handler
                 name="description"
-                placeholder="Game Description"
+                placeholder="Product Description"
                 value={data.description}
                 onChange={this.handleStringChange}
               />
@@ -143,7 +146,7 @@ class GameForm extends Component {
           <FormInlineMessage content={errors.thumbnail} type="error " />
         </div>
 
-        <div className="three fields">
+        <div className="two fields">
           <div className={errors.price ? 'field error' : 'field'}>
             <label htmlFor="price">Price</label>
             <input
@@ -157,30 +160,17 @@ class GameForm extends Component {
             <FormInlineMessage content={errors.price} type="error " />
           </div>
 
-          <div className={errors.duration ? 'field error' : 'field'}>
-            <label htmlFor="duration">duration (in minutes)</label>
+          <div className={errors.instock ? 'field error' : 'field'}>
+            <label htmlFor="instock">In stock (pieces)</label>
             <input
               type="number"
-              id="duration"
+              id="instock"
               //add name to make universal handler
-              name="duration"
-              value={data.duration}
+              name="instock"
+              value={data.instock}
               onChange={this.handleNumberChange}
             />
-            <FormInlineMessage content={errors.duration} type="error " />
-          </div>
-
-          <div className={errors.players ? 'field error' : 'field'}>
-            <label htmlFor="players">Players</label>
-            <input
-              type="text"
-              id="players"
-              //add name to make universal handler
-              name="players"
-              value={data.players}
-              onChange={this.handleStringChange}
-            />
-            <FormInlineMessage content={errors.players} type="error " />
+            <FormInlineMessage content={errors.instock} type="error " />
           </div>
         </div>
 
@@ -195,21 +185,38 @@ class GameForm extends Component {
           <label htmlFor="featured">Featured?</label>
         </div>
 
-        <div className={errors.publishers ? 'field error' : 'field'}>
-          <label>Publishers</label>
+        <div className={errors.producers ? 'field error' : 'field'}>
+          <label>Producer</label>
           <select
-            name="publisher"
-            value={data.publisher}
+            name="producer"
+            value={data.producer}
             onChange={this.handleNumberChange}
           >
-            <option value="0">Choose publisher</option>
-            {this.props.publishers.map((publisher) => (
-              <option value={publisher._id} key={publisher._id}>
-                {publisher.name}
+            <option value="0">Choose producer</option>
+            {this.props.producers.map((producer) => (
+              <option value={producer._id} key={producer._id}>
+                {producer.name}
               </option>
             ))}
           </select>
-          <FormInlineMessage content={errors.publishers} type="error " />
+          <FormInlineMessage content={errors.producers} type="error " />
+        </div>
+
+        <div className={errors.sizes ? 'field error' : 'field'}>
+          <label>Size</label>
+          <select
+            name="size"
+            value={data.size}
+            onChange={this.handleNumberChange}
+          >
+            <option value="0">Choose size</option>
+            {this.props.sizes.map((size) => (
+              <option value={size._id} key={size._id}>
+                {size.name}
+              </option>
+            ))}
+          </select>
+          <FormInlineMessage content={errors.sizes} type="error " />
         </div>
 
         <div className="ui fluid buttons">
@@ -217,7 +224,7 @@ class GameForm extends Component {
             Create
           </button>
           <div className="or"> </div>
-          <Link to="/games" className="ui button">
+          <Link to="/store" className="ui button">
             Cancel
           </Link>
         </div>
@@ -226,27 +233,26 @@ class GameForm extends Component {
   }
 }
 
-GameForm.propTypes = {
-  publishers: PropTypes.arrayOf(
+ProductForm.propTypes = {
+  producers: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
   submit: PropTypes.func.isRequired,
-  game: PropTypes.shape({
+  product: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
     thumbnail: PropTypes.string,
-    players: PropTypes.string,
     price: PropTypes.number,
     featured: PropTypes.bool,
-    duration: PropTypes.number,
+    instock: PropTypes.number,
   }).isRequired,
 };
 
-GameForm.defaultProps = {
-  publishers: [],
+ProductForm.defaultProps = {
+  producers: [],
 };
 
-export default GameForm;
+export default ProductForm;

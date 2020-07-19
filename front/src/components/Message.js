@@ -20,7 +20,7 @@ const Message = ({ header, content, type }) => (
               <i className="huge thumbs up outline icon"></i>
               <div className="content">
                 <div className="header">Success!!</div>
-                <p>The game is added to your store.</p>
+                <p>The product is added to your store.</p>
               </div>
             </div>
           );
@@ -29,8 +29,8 @@ const Message = ({ header, content, type }) => (
             <div>
               <i className="huge icon info"></i>
               <div className="content">
-                <div className="header">There is no game in your store!</div>
-                <p>Please add the game to your store.</p>
+                <div className="header">There is no product in your store!</div>
+                <p>Please add the product to your store.</p>
               </div>
             </div>
           );
