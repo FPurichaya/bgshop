@@ -72,7 +72,7 @@ class ProductCard extends React.Component {
             {product.name}
           </Link>
           <div className="meta">
-            <i className="shopping bag icon" /> {product.instock}
+            <i className="shopping bag icon" /> Stock: {product.instock} pieces
           </div>
         </div>
 
