@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Featured from './Featured';
 import Price from './Price';
+import '../CSS/ProductDisplay.css';
 
 class ProductCard extends React.Component {
   state = {

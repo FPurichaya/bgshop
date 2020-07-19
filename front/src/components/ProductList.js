@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import Message from './Message';
 
 const ProductList = ({ store, toggleFeatured, deleteProduct, user }) => (
-  <div className="ui four cards">
+  <div className="doubling stackable four cards ui grid container">
     {store.length === 0 ? (
       <div className="ui icon message">
         <Message header="Header" content="Message" type="default" />
