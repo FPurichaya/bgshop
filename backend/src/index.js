@@ -54,6 +54,8 @@ mongodb.MongoClient.connect(
       res.sendFile(path.join(__dirname, './index.html'));
     });
 
-    app.listen(2370, () => console.log('Running on localhost:2370'));
+    app.listen(`${process.env.LISTEN_PORT}`, () =>
+      console.log(`Running on localhost:${process.env.LISTEN_PORT}`)
+    );
   }
 );
