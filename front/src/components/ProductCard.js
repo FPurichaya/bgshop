@@ -74,6 +74,12 @@ class ProductCard extends React.Component {
           <div className="meta">
             <i className="shopping bag icon" /> Stock: {product.instock} pieces
           </div>
+          <div className="meta">
+            <i className="cut icon" /> Product Producer: {product.producer}
+          </div>
+          <div className="meta">
+            <i className="female icon" /> Product size: {product.size}
+          </div>
         </div>
 
         {user.token && user.role === 'user' && addToCart}

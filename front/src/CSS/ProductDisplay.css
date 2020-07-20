@@ -33,7 +33,8 @@
   display: flex;
   justify-content: right;
   padding-top: 60px;
-  padding-left: 620px;
+  justify-content: flex-end;
+  padding-right: 60px;
   color: rgb(220, 218, 218);
 }
 
