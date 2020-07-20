@@ -14,18 +14,43 @@ const ProductDetails = ({ product }) => (
       </div>
 
       <div className="eight wide column">
-        {product.description.split('\n').map((text, index) => (
-          <React.Fragment key={`${text}-${index}`}>
-            {text}
-            <br />
-          </React.Fragment>
-        ))}
+        <table className="ui table">
+          <tr>
+            <td>Product description:</td>
+            <td>
+              {product.description.split('\n').map((text, index) => (
+                <React.Fragment key={`${text}-${index}`}>
+                  {text}
+                  <br />
+                </React.Fragment>
+              ))}
+            </td>
+          </tr>
+        </table>
 
         <table className="ui table">
           <tbody>
             <tr>
               <td>In stock:</td>
               <td>{product.instock}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table className="ui table">
+          <tbody>
+            <tr>
+              <td>Product size:</td>
+              <td>{product.size}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table className="ui table">
+          <tbody>
+            <tr>
+              <td>Product producer:</td>
+              <td>{product.producer}</td>
             </tr>
           </tbody>
         </table>

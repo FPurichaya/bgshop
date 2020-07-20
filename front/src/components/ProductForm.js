@@ -87,6 +87,11 @@ class ProductForm extends Component {
       data: { ...this.state.data, [e.target.name]: e.target.checked },
     });
 
+  handleDropdownChange = (e) =>
+    this.setState({
+      data: { ...this.state.data, [e.target.name]: e.target.value },
+    });
+
   render() {
     const { data, errors, loading } = this.state;
     const formClassNames = loading ? 'ui form loading' : 'ui form';
@@ -190,11 +195,11 @@ class ProductForm extends Component {
           <select
             name="producer"
             value={data.producer}
-            onChange={this.handleNumberChange}
+            onChange={this.handleDropdownChange}
           >
             <option value="0">Choose producer</option>
             {this.props.producers.map((producer) => (
-              <option value={producer._id} key={producer._id}>
+              <option value={producer.name} key={producer._id}>
                 {producer.name}
               </option>
             ))}
@@ -207,11 +212,11 @@ class ProductForm extends Component {
           <select
             name="size"
             value={data.size}
-            onChange={this.handleNumberChange}
+            onChange={this.handleDropdownChange}
           >
             <option value="0">Choose size</option>
             {this.props.sizes.map((size) => (
-              <option value={size._id} key={size._id}>
+              <option value={size.name} key={size._id}>
                 {size.name}
               </option>
             ))}

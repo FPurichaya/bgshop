@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import HomePage from './HomePage';
 import TopNavigation from './TopNavigation';
 import ProductPage from './ProductPage';
+import Player from './Player/Player';
 import ShowProductPage from './ShowProductPage';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
@@ -73,6 +74,7 @@ class App extends Component {
           path="/store"
           render={(props) => <ProductPage {...props} user={this.state.user} />}
         />
+        <Route path="/player" exact component={Player} />
         <Route
           path="/signup"
           render={(props) => (

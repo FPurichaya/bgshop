@@ -12,6 +12,10 @@ const TopNavigation = ({ isAuthenticated, logout, isAdmin }) => (
       <NavLink exact to="/store" className="item">
         Store
       </NavLink>
+      <NavLink exact to="/player" className="item">
+        Player
+      </NavLink>
+
       {isAdmin && (
         <NavLink exact to="/store/new" className="item">
           <i className="icon plus"></i>Add New Product{' '}
