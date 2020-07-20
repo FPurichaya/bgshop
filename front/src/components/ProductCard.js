@@ -75,10 +75,10 @@ class ProductCard extends React.Component {
             <i className="shopping bag icon" /> Stock: {product.instock} pieces
           </div>
           <div className="meta">
-            <i className="cut icon" /> Product Producer: {product.producer}
+            <i className="cut icon" /> Producer: {product.producer}
           </div>
           <div className="meta">
-            <i className="female icon" /> Product size: {product.size}
+            <i className="female icon" /> Size: {product.size}
           </div>
         </div>
 

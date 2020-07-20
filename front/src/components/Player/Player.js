@@ -16,6 +16,7 @@ class Player extends React.Component {
     const response = await axios.get(
       'https://www.googleapis.com/youtube/v3/search',
       {
+        headers: { Authorization: '' },
         params: {
           q: searchTerm,
           part: 'snippet',
