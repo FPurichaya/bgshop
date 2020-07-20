@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = `https://api.purichaya.fraczyk.eu`;
+// axios.defaults.baseURL = `https://api.purichaya.fraczyk.eu`;
 
 export default {
   store: {
